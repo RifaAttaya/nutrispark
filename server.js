@@ -5,7 +5,10 @@ const cors = require('cors');
 const User = require('./models/User'); 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+// Railway akan mengisi process.env.PORT secara otomatis, 
+// tapi kita siapkan 8080 sebagai cadangan.
+const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors());
@@ -30,11 +33,9 @@ app.post('/api/save-bmi', async (req, res) => {
 });
 
 // --- PINTU 2: AMBIL DATA SPESIFIK USER (GET) ---
-// Ini biar riwayatnya nggak kecampur sama orang lain
 app.get('/api/get-bmi/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        // Cari data yang userId-nya cocok saja, urutkan dari yang terbaru
         const history = await User.find({ userId: userId }).sort({ tanggal: -1 });
         res.json(history);
     } catch (error) {
@@ -48,6 +49,8 @@ app.get('/', (req, res) => {
     res.send("Server NutriSpark & Database Aman Terkendali! ⚡");
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server jalan di http://localhost:${PORT}`);
+// BAGIAN PALING PENTING UNTUK RAILWAY:
+// Menggunakan '0.0.0.0' agar server bisa menerima koneksi dari luar (internet)
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server jalan dan terbuka untuk umum di port ${PORT}`);
 });
