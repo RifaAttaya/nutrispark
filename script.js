@@ -11,6 +11,9 @@ const missionData = {
     sun: { curr: 0, max: 1, icon: "☀️", title: "Sunlight Seeker", desc: "Berjemur pagi 10-15 menit (Vit D).", label: "Misi Selesai" }
 };
 
+// LINK BACKEND RAILWAY KAMU
+const BASE_URL = 'https://nutrispark-production.up.railway.app';
+
 let activeTab = 'water';
 let totalXP = parseInt(localStorage.getItem('nutriXP')) || 0;
 
@@ -50,30 +53,36 @@ function calculateBMI() {
 }
 
 function saveBMIToCloud(userId, nama, berat, tinggi, bmi, kategori) {
-    fetch('http://localhost:5000/api/save-bmi', {
+    fetch(`${BASE_URL}/api/save-bmi`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, nama, berat, tinggi, bmi, kategori })
     })
-    .then(() => loadBMIHistory());
+    .then(() => loadBMIHistory())
+    .catch(err => console.error("Gagal save cloud:", err));
 }
 
 function loadBMIHistory() {
     const userId = getUserId();
     const container = document.getElementById('bmi-history-list');
-    fetch(`http://localhost:5000/api/get-bmi/${userId}`)
+    fetch(`${BASE_URL}/api/get-bmi/${userId}`)
         .then(res => res.json())
         .then(history => {
+            if (!Array.isArray(history)) return;
             container.innerHTML = history.length ? history.map(item => `
                 <div class="history-item">
                     <span><strong>${item.bmi}</strong> (${item.kategori})</span>
                     <span>${new Date(item.tanggal).toLocaleDateString()}</span>
                 </div>
             `).join('') : `<p>Belum ada riwayat.</p>`;
+        })
+        .catch(err => {
+            console.error("Gagal load history:", err);
+            container.innerHTML = "<p>Gagal memuat riwayat.</p>";
         });
 }
 
-// --- FUNGSI MISI & XP ---
+// --- sisanya tetap sama seperti kode kamu ---
 function updateUI() {
     const m = missionData[activeTab];
     document.getElementById('c-icon').innerText = m.icon;
@@ -97,14 +106,13 @@ function doAction() {
             totalXP += 250;
             localStorage.setItem('nutriXP', totalXP);
             updateXPDisplay();
-            checkRewards(); // Cek apakah dapet reward baru
+            checkRewards();
             Swal.fire('Resilience!', `Misi ${m.title} tuntas. +250 XP`, 'success');
         }
         updateUI();
     }
 }
 
-// --- SISTEM REWARD (RESILIENCE MILESTONES) ---
 function updateXPDisplay() { 
     document.getElementById('total-xp').innerText = totalXP;
     updateLevelName();
@@ -121,12 +129,10 @@ function updateLevelName() {
 }
 
 function checkRewards() {
-    // Logika popup saat mencapai XP tertentu
     if (totalXP === 1000) Swal.fire('Achievement!', 'Badge Unlocked: Rising Star! Kamu mulai konsisten.', 'info');
     if (totalXP === 5000) Swal.fire('Legendary!', 'Badge Unlocked: Health Warrior! Ketangguhanmu luar biasa.', 'info');
 }
 
-// --- LOGIKA PENUNJANG ---
 function generateTabs() {
     const container = document.getElementById('tabs-container');
     container.innerHTML = '';
