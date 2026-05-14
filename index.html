@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriSpark | Nutrition Smart Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Nutri<span>Spark</span>⚡</div>
+        <div class="nav-links">
+            <a href="#awareness">Awareness</a>
+            <a href="#resilience">Resilience</a>
+            <a href="#knowledge">Knowledge</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-content">
+        <div class="ark-badge">Awareness • Resilience • Knowledge</div>
+        <h1>NutriSpark</h1>
+        <p class="hero-desc">Platform edukasi gizi interaktif untuk membantu remaja Indonesia membangun kebiasaan makan sehat melalui pendekatan sains yang menyenangkan.</p>
+        <div class="hero-btns">
+            <a href="#awareness" class="btn-main">Cek Status Gizi</a>
+            <a href="#resilience" class="btn-sub">Mulai Misi Sehat</a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    
+    <section id="awareness">
+        <div class="glass-card">
+            <div class="section-header text-center">
+                <span class="step-label">Step 01: Awareness</span>
+                <h2>BMI Tracker & History</h2>
+                <p>Pantau perkembangan indeks massa tubuhmu secara berkala.</p>
+            </div>
+            <div class="bmi-grid">
+                <div class="bmi-inputs">
+                    <div class="input-box">
+                        <label>Berat (kg)</label>
+                        <input type="number" id="weight" placeholder="Contoh: 55">
+                    </div>
+                    <div class="input-box">
+                        <label>Tinggi (cm)</label>
+                        <input type="number" id="height" placeholder="Contoh: 165">
+                    </div>
+                    <button onclick="calculateBMI()" class="btn-prime">Simpan ke Riwayat</button>
+                </div>
+                <div class="bmi-history-container">
+                    <p class="history-title">Riwayat Analisis:</p>
+                    <div id="bmi-history-list" class="history-list">
+                        <p style="font-size:0.8rem; color:#94a3b8">Memuat riwayat...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resilience">
+        <div class="section-header text-center">
+            <span class="step-label">Step 02: Resilience</span>
+            <h2>Daily Health Habit</h2>
+            <p>Selesaikan misi harian untuk melatih konsistensi gaya hidup sehat.</p>
+        </div>
+        <div class="challenge-box">
+            <div class="xp-badge-container">
+                <div class="xp-card">
+                    <span class="xp-label">Total Resilience Points</span>
+                    <h2><span id="total-xp">0</span> <small>XP</small></h2>
+                </div>
+                <div class="rank-card">
+                    <span class="xp-label">Current Rank</span>
+                    <h3 id="user-level">Beginner</h3>
+                </div>
+            </div>
+
+            <div class="tabs-scroll-container">
+                <div class="tabs-wrapper" id="tabs-container"></div>
+            </div>
+            
+            <div class="main-mission-card">
+                <div id="c-icon" class="big-emoji">💧</div>
+                <h3 id="c-title">Memuat...</h3>
+                <p id="c-desc" class="m-desc">...</p>
+                <div class="progress-area">
+                    <div class="p-bar-bg"><div class="p-bar-fill" id="p-bar"></div></div>
+                    <div class="p-stats"><span id="p-curr">0</span> / <span id="p-max">0</span></div>
+                </div>
+                <div class="mission-actions">
+                    <button onclick="doAction()" id="btn-act" class="btn-prime">Update Progres</button>
+                    <button onclick="resetCurrent()" class="btn-link">Reset Misi</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="knowledge">
+        <div class="section-header text-center">
+            <span class="step-label">Step 03: Knowledge</span>
+            <h2>Knowledge Hub</h2>
+            <p>Pelajari literasi gizi penting untuk menunjang tumbuh kembangmu.</p>
+        </div>
+        <div class="knowledge-grid">
+            <div class="k-card" onclick="openModal('m1')">
+                <div class="k-badge">Nutrisi Lokal</div>
+                <h3>Pangan Lokal Elite</h3>
+                <p>Mengapa Tempe dan Kelor disebut superfood asli Indonesia?</p>
+                <span class="k-more">Lihat Detail →</span>
+            </div>
+            <div class="k-card" onclick="openModal('m2')">
+                <div class="k-badge">Waspada</div>
+                <h3>Sugar Trap</h3>
+                <p>Bahaya tersembunyi di balik minuman manis kekinian.</p>
+                <span class="k-more">Lihat Detail →</span>
+            </div>
+            <div class="k-card" onclick="openModal('m3')">
+                <div class="k-badge">Performa</div>
+                <h3>Nutrisi Konsentrasi</h3>
+                <p>Kaitan antara asupan Zat Besi dengan fokus belajar di kelas.</p>
+                <span class="k-more">Lihat Detail →</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="footer-content text-center">
+        <div class="logo">Nutri<span>Spark</span>⚡</div>
+        <p>Nutrition Smart Platform | Awareness • Resilience • Knowledge</p>
+        <hr class="f-hr">
+        <p class="copyright">&copy; 2026 NutriSpark Indonesia. Semua Hak Dilindungi.</p>
+    </div>
+</footer>
+
+<div id="m1" class="modal" onclick="closeModalOutside(event, 'm1')">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('m1')">&times;</span>
+        <h2>Pangan Lokal Elite</h2>
+        <p>Indonesia memiliki <b>Daun Kelor</b> yang diakui sebagai superfood karena kepadatan nutrisinya yang luar biasa untuk mencegah stunting dan meningkatkan imun. Selain itu, <b>Tempe</b> adalah pangan fungsional yang kaya akan probiotik dan protein nabati berkualitas tinggi yang sangat baik untuk kesehatan pencernaan. Tidak perlu mahal, ikan lokal seperti <b>Ikan Kembung</b> ternyata memiliki kandungan Omega-3 yang sangat tinggi, bahkan melampaui beberapa jenis ikan impor, yang sangat penting untuk kesehatan jantung dan perkembangan otak.</p>
+        <div class="ref-box">
+            <strong>Referensi:</strong>
+            <ul>
+                <li><a href="https://media.neliti.com/media/publications/641045-edukasi-pemanfaatan-daun-kelor-sebagai-s-54092f16.pdf" target="_blank">Kemenkes RI (2021) - Edukasi Daun Kelor</a></li>
+                <li><a href="https://keslan.kemkes.go.id/view_artikel/4043/tempe-sebagai-pangan-fungsional-bergizi-tinggi-dan-kaya-manfaat-health" target="_blank">Kemenkes RI (2025) - Manfaat Tempe</a></li>
+                <li><a href="https://goriau.com/berita/baca/harganya-murah-5-ikan-ini-ternyata-kandung-omega-3-tinggi.html" target="_blank">KKP RI (2022) - Ikan Omega-3 Tinggi</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="m2" class="modal" onclick="closeModalOutside(event, 'm2')">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('m2')">&times;</span>
+        <h2>The Sugar Trap</h2>
+        <p>Konsumsi gula yang berlebihan pada remaja dapat meningkatkan risiko obesitas dan diabetes tipe-2 di masa depan. Penelitian menunjukkan bahwa kandungan gula dalam minuman teh susu atau boba sangat tinggi, yang seringkali tidak disadari oleh konsumen. Gula berlebih juga berdampak buruk pada kesehatan kulit (jerawat) dan menyebabkan fluktuasi energi yang membuat tubuh cepat merasa lelah. Sangat penting bagi remaja untuk membatasi asupan GGL (Gula, Garam, Lemak) demi menjaga metabolisme tubuh tetap sehat.</p>
+        <div class="ref-box">
+            <strong>Referensi:</strong>
+            <ul>
+                <li><a href="https://kemkes.go.id/id/cegah-meningkatnya-diabetes-jangan-berlebihan-konsumsi-gula-garam-lemak" target="_blank">Kemenkes RI (2024) - Batasi GGL</a></li>
+                <li><a href="https://e-journal.unair.ac.id/AMNT/article/download/39783/23615/187596" target="_blank">UNAIR (2022) - Kandungan Gula Teh Susu</a></li>
+                <li><a href="https://aktual.kontan.co.id/news/5-bahaya-gula-berlebihan-buat-kesehatan-remaja-batasi-konsumsinya-dari-sekarang" target="_blank">Kontan (2024) - Bahaya Gula Remaja</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="m3" class="modal" onclick="closeModalOutside(event, 'm3')">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('m3')">&times;</span>
+        <h2>Nutrisi Konsentrasi</h2>
+        <p>Anemia atau kekurangan <b>Zat Besi</b> adalah masalah umum pada remaja yang dapat menyebabkan sulit konsentrasi, cepat lelah, dan pucat. Zat besi berperan penting dalam pembentukan hemoglobin yang membawa oksigen ke otak. Selain zat besi, menjaga kestabilan <b>Gula Darah</b> melalui asupan makanan bergizi seimbang juga krusial agar energi tetap stabil sepanjang hari saat belajar. Memenuhi kebutuhan mikronutrien ini adalah kunci utama untuk mempertahankan performa akademik dan kesehatan fisik yang optimal.</p>
+        <div class="ref-box">
+            <strong>Referensi:</strong>
+            <ul>
+                <li><a href="https://www.alodokter.com/kenali-penyebab-anemia-pada-remaja-dan-cara-pencegahannya" target="_blank">Alodokter (2023) - Anemia Remaja</a></li>
+                <li><a href="https://www.alodokter.com/5-alasan-tubuh-anda-membutuhkan-zat-besi" target="_blank">Alodokter (2016) - Manfaat Zat Besi</a></li>
+                <li><a href="https://www.ekahospital.com/better-healths/cara-menjaga-gula-darah-agar-tetap-aman" target="_blank">Eka Hospital (2024) - Menjaga Gula Darah</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
